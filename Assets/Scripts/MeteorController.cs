@@ -19,8 +19,7 @@ public class MeteorController : MonoBehaviour {
 
         randX = Random.Range(1, 10) * x;
         randY = Random.Range(1, 10) * -1;
-
-        Debug.Log(randX + " " + randY + " " + speed);
+        
 	}
 	
 	void Update () {

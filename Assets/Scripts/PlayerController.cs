@@ -19,4 +19,12 @@ public class PlayerController : MonoBehaviour {
         transform.position += movement * speed * Time.deltaTime;
 
 	}
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.transform.tag == "meteor")
+        {
+            Destroy(gameObject);
+        }
+    }
 }
