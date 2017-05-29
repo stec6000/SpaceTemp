@@ -1,17 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
     public float speed = 10f;
+    public Text scoreText;
+
+    private float scores = 0;
+    private float scoreRate = 1;
 
     void Start()
     {      
 
     }
 
-	void FixedUpdate () {
+    void Update()
+    {
+        scores += Time.deltaTime;
+        scoreText.text = "" + Mathf.Round(scores);
+    }
+
+    void FixedUpdate () {
         
         float x = Input.GetAxis("Horizontal");
 
@@ -26,5 +37,15 @@ public class PlayerController : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+    }
+
+    public float GetScores()
+    {
+        return scores;
+    }
+
+    public void BonusScores(float bonus)
+    {
+        scores +=bonus;
     }
 }
