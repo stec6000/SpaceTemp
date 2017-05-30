@@ -5,7 +5,7 @@ using UnityEngine;
 public class MeteorSpawn : MonoBehaviour {
 
     private float spawnTime = 1f;
-    private int x, y;
+    private float x, y;
     private GameObject meteor;
     private float tempTime = 0;
 
@@ -25,11 +25,11 @@ public class MeteorSpawn : MonoBehaviour {
 
     public void Spawn()
     {
-        x = Random.Range(-1, 1);
-        if (x != -1) x = 1;
-        y = Random.Range(-1, 7);
+        x = Random.Range(-5f, 5f);
+        Debug.Log(x);
+        y = 6;
 
-        Instantiate(meteor, new Vector3(x * 6, y, 0), Quaternion.Euler(0, 0, 0));
+        Instantiate(meteor, new Vector3(x, y, 0), Quaternion.Euler(0, 0, 0));
     }
 
     public void SpawnTimeDecreas()

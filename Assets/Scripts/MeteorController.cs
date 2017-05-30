@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class MeteorController : MonoBehaviour {
 
-    public float speed = 0.1f;
+    public float speed = 10f;
 
     private int x, y;
     private int randX, randY;
     
 	void Start () {
         
-        if (gameObject.transform.position.x < 0)
+     /*   if (gameObject.transform.position.x < 0)
         {
             x = 1;
         }
@@ -19,12 +19,12 @@ public class MeteorController : MonoBehaviour {
 
         randX = Random.Range(1, 10) * x;
         randY = Random.Range(1, 10) * -1;
-        
+        */
 	}
 	
 	void Update () {
-        gameObject.transform.Translate(randX * speed, randY * speed, Time.deltaTime);
+        gameObject.transform.Translate(0, -1 * speed, Time.deltaTime);
 
-        if (gameObject.transform.position.y < -8 || gameObject.transform.position.y < -8 || gameObject.transform.position.y > 8) Destroy(gameObject);
+        if (gameObject.transform.position.y < -8) Destroy(gameObject);
     }
 }
