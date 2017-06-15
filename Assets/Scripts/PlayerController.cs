@@ -6,17 +6,19 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
 
     public float speed = 10f;
-    public Text scoreText;
+    
 
-    private float scores = 0;
-    private float scoreRate = 1;
+    private GameObject bulletPrefab;
     private float padding = 0.5f;
     private float xmin;
     private float xmax;
+    private float tempTime = 0;
+    private float timeBetweenShots = 1f;
+    private float lives = 3f;
 
     void Start()
     {
-
+        bulletPrefab = Resources.Load("bullet") as GameObject;
         float distance = transform.position.z - Camera.main.transform.position.z;
         Vector3 leftmost = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, distance));
         Vector3 rightmost = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, distance));
@@ -26,8 +28,15 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
-        scores += Time.deltaTime;
-        scoreText.text = "" + Mathf.Round(scores);
+        tempTime += Time.deltaTime;
+        if (Input.GetKey(KeyCode.Space) && tempTime > timeBetweenShots)
+        {
+            GameObject bullet = Instantiate(bulletPrefab);
+            bullet.transform.position = transform.position;
+            Rigidbody2D rig = bullet.GetComponent<Rigidbody2D>();
+            rig.velocity = new Vector3(0, 10f, 0);
+            tempTime = 0;
+        }
 
     }
 
@@ -44,21 +53,16 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.transform.tag == "meteor")
         {
-            Destroy(gameObject);
+            lives--;
         }
     }
 
-    public float GetScores()
+    public float GetLives()
     {
-        return scores;
-    }
-
-    public void BonusScores(float bonus)
-    {
-        scores +=bonus;
+        return lives;
     }
 }

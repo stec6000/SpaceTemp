@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
     public PlayerController playerController;
     public MeteorSpawn meteorSpawn;
+    public Text scoreText;
+    public Text livesText;
 
+    private float scores = 0;
     private float level = 1;
 
 	void Start () {
@@ -14,11 +18,18 @@ public class GameController : MonoBehaviour {
 	}
 	
 	void Update () {
-		if(playerController.GetScores() > level * 10)
+        
+		if(scores > level * 10)
         {
             meteorSpawn.SpawnTimeDecreas();
             level++;
-            playerController.BonusScores(level / 2);
         }
+        scoreText.text = "" + scores;
+        livesText.text = "" + playerController.GetLives();
 	}
+
+    public void IncreaseScores()
+    {
+        scores++;
+    }
 }

@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MeteorController : MonoBehaviour {
 
     public float speed = 10f;
 
+    private GameController gameController;
     private int x, y;
     private int randX, randY;
     
 	void Start () {
-        
+
+        gameController = FindObjectOfType<GameController>();
      /*   if (gameObject.transform.position.x < 0)
         {
             x = 1;
@@ -27,4 +30,21 @@ public class MeteorController : MonoBehaviour {
 
         if (gameObject.transform.position.y < -8) Destroy(gameObject);
     }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Destroy(gameObject);
+        }
+
+        if (collision.tag == "bullet")
+        {
+            gameController.IncreaseScores();
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
+        }
+    }
+
+    
 }
